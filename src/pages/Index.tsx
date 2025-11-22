@@ -13,27 +13,27 @@ const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setUser(session.user);
-      } else {
-        navigate("/auth");
-      }
-    });
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     if (session) {
+  //       setUser(session.user);
+  //     } else {
+  //       navigate("/auth");
+  //     }
+  //   });
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        setUser(session.user);
-      } else {
-        navigate("/auth");
-      }
-    });
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     if (session) {
+  //       setUser(session.user);
+  //     } else {
+  //       navigate("/auth");
+  //     }
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, [navigate]);
+  //   return () => subscription.unsubscribe();
+  // }, [navigate]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

@@ -31,12 +31,10 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
         .from("posts")
         .select(`
           id,
-          title,
-          description,
-          created_at,
-          profiles (
-            username
-          )
+          titulo,
+          conteudo,
+          autor,
+          data_publicacao
         `)
         .order("created_at", { ascending: false })
         .range(from, to);
