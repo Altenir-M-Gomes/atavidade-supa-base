@@ -16,11 +16,26 @@ const POSTS_PER_PAGE = 10;
 
 export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [email, setEmail] = useState<string>("Usuário");
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const observerTarget = useRef<HTMLDivElement>(null);
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      const { error } = await supabase
+        .from("posts")
+        .delete()
+        .eq("id", postId);
+
+      if (error) throw error;
+
+      setPosts((prev) => prev.filter((post) => post.id !== postId));
+    } catch (error) {
+      console.error("Erro ao deletar post:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,8 +43,11 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
         data: { user },
       } = await supabase.auth.getUser();
 
+      console.log("User", user);
+      
+
       if (user) {
-        setEmail(user.email || "Usuário");
+        setUser(user);
       }
     };
 
@@ -115,12 +133,17 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
       {posts.map((post) => (
         <PostCard
           key={post.id}
+          id={post.id}
           title={post.title}
+          email={user.email}
           description={post.description}
-          email={email}
           createdAt={post.created_at}
+          userId={post.user_id}
+          currentUserId={user?.id || ""}
+          onDelete={handleDeletePost}
         />
       ))}
+
       {hasMore && (
         <div ref={observerTarget} className="py-4">
           <Skeleton className="h-48 w-full" />
