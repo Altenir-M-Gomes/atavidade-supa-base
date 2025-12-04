@@ -53,7 +53,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background shadow-sm">
         <div className="container flex h-16 items-center justify-between">
           <h1 className="text-2xl font-bold">Blog Comunitário</h1>
           <div className="flex items-center gap-4">
@@ -64,7 +64,7 @@ const Index = () => {
           </div>
         </div>
       </header>
-      <main className="container py-8">
+      <main className="container pb-12 pt-8">
         <PostsFeed refreshTrigger={refreshTrigger} />
       </main>
     </div>
