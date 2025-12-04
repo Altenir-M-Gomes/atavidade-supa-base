@@ -8,19 +8,33 @@ interface Post {
   title: string;
   description: string;
   created_at: string;
-  profiles: {
-    username: string;
-  };
+  updated_at: string;
+  user_id: string
 }
 
 const POSTS_PER_PAGE = 10;
 
 export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [email, setEmail] = useState<string>("Usuário");
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(0);
   const observerTarget = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setEmail(user.email || "Usuário");
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const loadPosts = useCallback(async (pageNum: number, shouldReset = false) => {
     try {
@@ -29,15 +43,7 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
 
       const { data, error } = await supabase
         .from("posts")
-        .select(`
-          id,
-          title,
-          description,
-          created_at,
-          profiles (
-            username
-          )
-        `)
+        .select("*")
         .order("created_at", { ascending: false })
         .range(from, to);
 
@@ -111,7 +117,7 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
           key={post.id}
           title={post.title}
           description={post.description}
-          username={post.profiles?.username || "Usuário"}
+          email={email}
           createdAt={post.created_at}
         />
       ))}

@@ -5,11 +5,11 @@ import { ptBR } from "date-fns/locale";
 interface PostCardProps {
   title: string;
   description: string;
-  username: string;
+  email: string;
   createdAt: string;
 }
 
-export const PostCard = ({ title, description, username, createdAt }: PostCardProps) => {
+export const PostCard = ({ title, description, email, createdAt }: PostCardProps) => {
   const timeAgo = formatDistanceToNow(new Date(createdAt), {
     addSuffix: true,
     locale: ptBR,
@@ -22,7 +22,7 @@ export const PostCard = ({ title, description, username, createdAt }: PostCardPr
           <CardTitle className="text-xl">{title}</CardTitle>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span>por {username}</span>
+          <span>por {email}</span>
           <span>•</span>
           <span>{timeAgo}</span>
         </div>

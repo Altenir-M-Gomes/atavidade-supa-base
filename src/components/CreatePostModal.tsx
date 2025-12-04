@@ -48,7 +48,6 @@ export const CreatePostModal = ({ onPostCreated }: CreatePostModalProps) => {
         .insert({
           title: validated.title,
           description: validated.description,
-          user_id: user.id,
         });
 
       if (error) throw error;
@@ -63,6 +62,8 @@ export const CreatePostModal = ({ onPostCreated }: CreatePostModalProps) => {
       setOpen(false);
       onPostCreated();
     } catch (error) {
+      console.log("Error", error);
+      
       if (error instanceof z.ZodError) {
         toast({
           title: "Erro de validação",

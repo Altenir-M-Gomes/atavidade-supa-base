@@ -16,26 +16,26 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string
-          id: number               // <-- AJUSTADO
+          id: string               // <-- AJUSTADO
           title: string
           updated_at: string | null
-          user_id: number          // <-- AJUSTADO
+          user_id: string          // <-- AJUSTADO
         }
         Insert: {
           created_at?: string | null
           description: string
-          id?: number              // <-- AJUSTADO
+          id?: string              // <-- AJUSTADO
           title: string
           updated_at?: string | null
-          user_id: number          // <-- AJUSTADO
+          user_id: string          // <-- AJUSTADO
         }
         Update: {
           created_at?: string | null
           description?: string
-          id?: number              // <-- AJUSTADO
+          id?: string              // <-- AJUSTADO
           title?: string
           updated_at?: string | null
-          user_id?: number         // <-- AJUSTADO
+          user_id?: string         // <-- AJUSTADO
         }
         Relationships: [
           {
@@ -52,19 +52,19 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string | null
-          id: number               // <-- AJUSTADO
+          id: string               // <-- AJUSTADO
           username: string | null
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string | null
-          id: number               // <-- AJUSTADO
+          id: string               // <-- AJUSTADO
           username?: string | null
         }
         Update: {
           avatar_url?: string | null
           created_at?: string | null
-          id?: number              // <-- AJUSTADO
+          id?: string              // <-- AJUSTADO
           username?: string | null
         }
         Relationships: []
