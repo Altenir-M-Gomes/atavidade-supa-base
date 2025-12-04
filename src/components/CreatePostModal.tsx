@@ -48,6 +48,7 @@ export const CreatePostModal = ({ onPostCreated }: CreatePostModalProps) => {
         .insert({
           title: validated.title,
           description: validated.description,
+          user_email: user.email
         });
 
       if (error) throw error;

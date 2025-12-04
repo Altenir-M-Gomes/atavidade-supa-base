@@ -135,7 +135,7 @@ export const PostsFeed = ({ refreshTrigger }: { refreshTrigger: number }) => {
           key={post.id}
           id={post.id}
           title={post.title}
-          email={user.email}
+          email={post.user_email}
           description={post.description}
           createdAt={post.created_at}
           userId={post.user_id}
